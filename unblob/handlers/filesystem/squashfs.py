@@ -115,6 +115,25 @@ class SquashFSv2Handler(_SquashFSBase):
     HEADER_STRUCT = "squashfs2_super_block_t"
 
 
+class SquashFSv2NonStandardHandler(SquashFSv2Handler):
+    NAME = "squashfs_v2_nonstandard"
+
+    BIG_ENDIAN_MAGIC = 0x73_71_6C_7A
+
+    EXTRACTOR = SquashFSExtractor(0x73_71_6C_7A)
+
+    PATTERNS = [
+        HexString(
+            """
+            // 00000000  73 71 6c 7a 00 00 03 3f  00 21 99 d7 00 21 99 c7  |sqlz...?........|
+            // 00000010  00 00 00 00 00 21 71 7c  00 21 82 89 00 02 00 01  |.!...!.......!q.|
+            // squashfs_v2_magic_non_standard_be
+            73 71 6c 7a [24] 00 02
+        """
+        ),
+    ]
+
+
 class SquashFSv3Handler(_SquashFSBase):
     NAME = "squashfs_v3"
 
