@@ -206,7 +206,7 @@ def _padded_field(re_content_char, size, leftpad_re=" ", rightpad_re=r"[ \0x00]"
     field_regexes = []
 
     for padsize in range(size):
-        content_re = f"{re_content_char}{{{size-padsize}}}"
+        content_re = f"{re_content_char}{{{size - padsize}}}"
 
         for leftpadsize in range(padsize + 1):
             rightpadsize = padsize - leftpadsize

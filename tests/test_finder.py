@@ -1,4 +1,4 @@
-import attr
+import attrs
 import pytest
 from pyperscan import Scan
 
@@ -233,4 +233,4 @@ def test_search_chunks(content, expected_chunks, task_result):
 
     assert len(chunks) == len(expected_chunks)
     for expected_chunk, chunk in zip(expected_chunks, chunks):
-        assert attr.evolve(chunk, id="") == attr.evolve(expected_chunk, id="")
+        assert attrs.evolve(chunk, id="") == attrs.evolve(expected_chunk, id="")

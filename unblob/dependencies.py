@@ -1,11 +1,11 @@
 import shutil
 
-import attr
+import attrs
 
 from .models import DirectoryHandlers, Handlers
 
 
-@attr.define
+@attrs.define
 class Dependency:
     command: str
     is_installed: bool

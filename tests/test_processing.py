@@ -6,7 +6,7 @@ from pathlib import Path
 from statistics import mean
 from typing import Optional, TypeVar
 
-import attr
+import attrs
 import pytest
 
 from unblob import handlers
@@ -54,7 +54,7 @@ def assert_same_chunks(expected, actual, explanation=None):
     """Assert ignoring the chunk.id-s."""
     assert len(expected) == len(actual), explanation
     for e, a in zip(expected, actual):
-        assert attr.evolve(e, id="") == attr.evolve(a, id=""), explanation
+        assert attrs.evolve(e, id="") == attrs.evolve(a, id=""), explanation
 
 
 @pytest.mark.parametrize(

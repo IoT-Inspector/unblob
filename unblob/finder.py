@@ -6,7 +6,7 @@ The main "entry point" is search_chunks_by_priority.
 from functools import lru_cache
 from typing import Optional
 
-import attr
+import attrs
 from pyperscan import Flag, Pattern, Scan, StreamDatabase
 from structlog import get_logger
 
@@ -19,7 +19,7 @@ from .report import CalculateChunkExceptionReport
 logger = get_logger()
 
 
-@attr.define
+@attrs.define
 class HyperscanMatchContext:
     file: File
     file_size: int

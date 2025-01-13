@@ -1,7 +1,7 @@
 import io
 from typing import Optional
 
-import attr
+import attrs
 from pyperscan import Flag, Pattern, Scan, StreamDatabase
 from structlog import get_logger
 
@@ -61,7 +61,7 @@ def build_stream_end_scan_db(pattern_list):
 hyperscan_stream_end_magic_db = build_stream_end_scan_db(STREAM_END_MAGIC_PATTERNS)
 
 
-@attr.define
+@attrs.define
 class XZSearchContext:
     start_offset: int
     file: File

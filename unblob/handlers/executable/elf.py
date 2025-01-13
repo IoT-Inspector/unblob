@@ -3,7 +3,7 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-import attr
+import attrs
 import lief
 from structlog import get_logger
 
@@ -29,7 +29,7 @@ KERNEL_MODULE_SIGNATURE_FOOTER = b"~Module signature appended~\n"
 KERNEL_INIT_DATA_SECTION = ".init.data"
 
 
-@attr.define(repr=False)
+@attrs.define(repr=False)
 class ElfChunk(ValidChunk):
     def extract(self, inpath: Path, outdir: Path):
         # ELF file extraction is special in that in the general case no new files are extracted, thus

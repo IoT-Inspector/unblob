@@ -43,7 +43,7 @@ pyright = "^1.1.349"
 pytest = "^8.0.0"
 pytest-cov = ">=3,<7"
 pyyaml = "^6.0.1"
-ruff = "0.8.6"
+ruff = "0.9.1"
 taplo = "^0.9.3"
 
 [tool.poetry.group.docs]
@@ -90,12 +90,14 @@ select = [
   "T10",    # flake8-debugger
   "T20",    # flake8-print
   "TC",     # flake8-type-checking
+  "TID251", # flake8-tidy-imports; banned-api
   "TRY",    # tryceratops
   "UP",     # pyupgrade
   "W",      # pycodestyle (warnings)
 ]
 
 ignore = [
+  "A005",    # stdlib-module-shadowing:                 E.g. `unblog.logging` collides with stdlib `logging`. It's okay for us
   "B027",    # empty-method-without-abstract-decorator: It is okay to have empty methods in abstract classes
   "D1",      # undocumented-*:                          We are not documenting every public symbol
   "D203",    # one-blank-line-before-class:             D211 (no-blank-line-before-class) is used instead
@@ -142,6 +144,9 @@ allow-magic-value-types = [
 fixture-parentheses = false
 mark-parentheses = false
 parametrize-names-type = "csv"
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"attr".msg = "Use `attrs` (with an 's') instead"
 
 [tool.pytest.ini_options]
 addopts = "--cov=unblob --cov=tests --cov-branch --cov-fail-under=90"

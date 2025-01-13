@@ -30,8 +30,7 @@ class SingleMemberGzipReader(gzip._GzipReader):  # noqa: SLF001
                 break
             if buf == b"":
                 raise EOFError(
-                    "Compressed file ended before the "
-                    "end-of-stream marker was reached"
+                    "Compressed file ended before the end-of-stream marker was reached"
                 )
 
         self._add_read_data(uncompress)

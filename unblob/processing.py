@@ -5,7 +5,7 @@ from operator import attrgetter
 from pathlib import Path
 from typing import Optional, Union
 
-import attr
+import attrs
 import magic
 import plotext as plt
 from structlog import get_logger
@@ -83,9 +83,9 @@ DEFAULT_SKIP_MAGIC = (
 DEFAULT_SKIP_EXTENSION = (".rlib",)
 
 
-@attr.define(kw_only=True)
+@attrs.define(kw_only=True)
 class ExtractionConfig:
-    extract_root: Path = attr.field(converter=lambda value: value.resolve())
+    extract_root: Path = attrs.field(converter=lambda value: value.resolve())
     force_extract: bool = False
     randomness_depth: int
     randomness_plot: bool = False

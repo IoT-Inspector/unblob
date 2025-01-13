@@ -2,7 +2,7 @@ import io
 from pathlib import Path
 from typing import Optional
 
-import attr
+import attrs
 from pyperscan import Flag, Pattern, Scan, StreamDatabase
 from structlog import get_logger
 
@@ -36,7 +36,7 @@ FOOTER_PATTERN = [
 ]
 
 
-@attr.define
+@attrs.define
 class QTSSearchContext:
     start_offset: int
     file: File

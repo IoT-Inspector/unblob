@@ -6,7 +6,6 @@ from enum import Enum
 from pathlib import Path
 from typing import Optional, TypeVar
 
-import attr
 import attrs
 from structlog import get_logger
 
@@ -31,22 +30,22 @@ logger = get_logger()
 #
 
 
-@attr.define(frozen=True)
+@attrs.define(frozen=True)
 class Task:
     path: Path
     depth: int
     blob_id: str
-    is_multi_file: bool = attr.field(default=False)
+    is_multi_file: bool = attrs.field(default=False)
 
 
-@attr.define
+@attrs.define
 class Blob:
-    id: str = attr.field(
+    id: str = attrs.field(
         factory=new_id,
     )
 
 
-@attr.define
+@attrs.define
 class Chunk(Blob):
     """File chunk, have start and end offset, but still can be invalid.
 
@@ -56,10 +55,10 @@ class Chunk(Blob):
         b[c.start_offset:c.end_offset]
     """
 
-    start_offset: int = attr.field(kw_only=True)
+    start_offset: int = attrs.field(kw_only=True)
     """The index of the first byte of the chunk"""
 
-    end_offset: int = attr.field(kw_only=True)
+    end_offset: int = attrs.field(kw_only=True)
     """The index of the first byte after the end of the chunk"""
 
     file: Optional[File] = None
@@ -101,12 +100,12 @@ class Chunk(Blob):
         return self.range_hex
 
 
-@attr.define(repr=False)
+@attrs.define(repr=False)
 class ValidChunk(Chunk):
     """Known to be valid chunk of a File, can be extracted with an external program."""
 
-    handler: "Handler" = attr.ib(init=False, eq=False)
-    is_encrypted: bool = attr.ib(default=False)
+    handler: "Handler" = attrs.field(init=False, eq=False)
+    is_encrypted: bool = attrs.field(default=False)
 
     def extract(self, inpath: Path, outdir: Path) -> Optional["ExtractResult"]:
         if self.is_encrypted:
@@ -131,7 +130,7 @@ class ValidChunk(Chunk):
         )
 
 
-@attr.define(repr=False)
+@attrs.define(repr=False)
 class UnknownChunk(Chunk):
     r"""Gaps between valid chunks or otherwise unknown chunks.
 
@@ -152,7 +151,7 @@ class UnknownChunk(Chunk):
         )
 
 
-@attr.define(repr=False)
+@attrs.define(repr=False)
 class PaddingChunk(Chunk):
     r"""Gaps between valid chunks or otherwise unknown chunks.
 
@@ -177,10 +176,10 @@ class PaddingChunk(Chunk):
 
 @attrs.define
 class MultiFile(Blob):
-    name: str = attr.field(kw_only=True)
-    paths: list[Path] = attr.field(kw_only=True)
+    name: str = attrs.field(kw_only=True)
+    paths: list[Path] = attrs.field(kw_only=True)
 
-    handler: "DirectoryHandler" = attr.ib(init=False, eq=False)
+    handler: "DirectoryHandler" = attrs.field(init=False, eq=False)
 
     def extract(self, outdir: Path) -> Optional["ExtractResult"]:
         return self.handler.extract(self.paths, outdir)
@@ -198,11 +197,11 @@ class MultiFile(Blob):
 ReportType = TypeVar("ReportType", bound=Report)
 
 
-@attr.define
+@attrs.define
 class TaskResult:
     task: Task
-    reports: list[Report] = attr.field(factory=list)
-    subtasks: list[Task] = attr.field(factory=list)
+    reports: list[Report] = attrs.field(factory=list)
+    subtasks: list[Task] = attrs.field(factory=list)
 
     def add_report(self, report: Report):
         self.reports.append(report)
@@ -214,9 +213,9 @@ class TaskResult:
         return [report for report in self.reports if isinstance(report, report_class)]
 
 
-@attr.define
+@attrs.define
 class ProcessResult:
-    results: list[TaskResult] = attr.field(factory=list)
+    results: list[TaskResult] = attrs.field(factory=list)
 
     @property
     def errors(self) -> list[ErrorReport]:
@@ -257,9 +256,9 @@ class ProcessResult:
 
 class _JSONEncoder(json.JSONEncoder):
     def default(self, obj):
-        if attr.has(type(obj)):
+        if attrs.has(type(obj)):
             extend_attr_output = True
-            attr_output = attr.asdict(obj, recurse=not extend_attr_output)
+            attr_output = attrs.asdict(obj, recurse=not extend_attr_output)
             attr_output["__typename__"] = obj.__class__.__name__
             return attr_output
 
@@ -295,7 +294,7 @@ class ExtractError(Exception):
         self.reports: tuple[Report, ...] = reports
 
 
-@attr.define(kw_only=True)
+@attrs.define(kw_only=True)
 class ExtractResult:
     reports: list[Report]
 

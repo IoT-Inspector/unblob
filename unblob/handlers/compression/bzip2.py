@@ -1,6 +1,6 @@
 from typing import Optional
 
-import attr
+import attrs
 from pyperscan import Flag, Pattern, Scan, StreamDatabase
 from structlog import get_logger
 
@@ -63,7 +63,7 @@ hyperscan_stream_end_magic_db = build_stream_end_scan_db(STREAM_END_MAGIC_PATTER
 parser = StructParser(C_DEFINITIONS)
 
 
-@attr.define
+@attrs.define
 class Bzip2SearchContext:
     start_offset: int
     file: File

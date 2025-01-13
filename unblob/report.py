@@ -5,21 +5,21 @@ from enum import Enum
 from pathlib import Path
 from typing import Optional, Union, final
 
-import attr
+import attrs
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class Report:
     """A common base class for different reports."""
 
     def __attrs_post_init__(self):
-        for field in attr.fields(type(self)):
+        for field in attrs.fields(type(self)):
             value = getattr(self, field.name)
             if isinstance(value, int):
                 object.__setattr__(self, field.name, int(value))
 
     def asdict(self) -> dict:
-        return attr.asdict(self)
+        return attrs.asdict(self)
 
 
 class Severity(Enum):
@@ -29,7 +29,7 @@ class Severity(Enum):
     WARNING = "WARNING"
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class ErrorReport(Report):
     severity: Severity
 
@@ -43,12 +43,12 @@ def _convert_exception_to_str(obj: Union[str, Exception]) -> str:
     raise ValueError("Invalid exception object", obj)
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class UnknownError(ErrorReport):
     """Describes an exception raised during file processing."""
 
-    severity: Severity = attr.field(default=Severity.ERROR)
-    exception: Union[str, Exception] = attr.field(  # pyright: ignore[reportGeneralTypeIssues]
+    severity: Severity = attrs.field(default=Severity.ERROR)
+    exception: Union[str, Exception] = attrs.field(  # pyright: ignore[reportGeneralTypeIssues]
         converter=_convert_exception_to_str
     )
     """Exceptions are also formatted at construct time.
@@ -59,7 +59,7 @@ class UnknownError(ErrorReport):
     """
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class CalculateChunkExceptionReport(UnknownError):
     """Describes an exception raised during calculate_chunk execution."""
 
@@ -68,7 +68,7 @@ class CalculateChunkExceptionReport(UnknownError):
     handler: str
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class CalculateMultiFileExceptionReport(UnknownError):
     """Describes an exception raised during calculate_chunk execution."""
 
@@ -77,7 +77,7 @@ class CalculateMultiFileExceptionReport(UnknownError):
     handler: str
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class ExtractCommandFailedReport(ErrorReport):
     """Describes an error when failed to run the extraction command."""
 
@@ -88,13 +88,13 @@ class ExtractCommandFailedReport(ErrorReport):
     exit_code: int
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class OutputDirectoryExistsReport(ErrorReport):
     severity: Severity = Severity.ERROR
     path: Path
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class ExtractorDependencyNotFoundReport(ErrorReport):
     """Describes an error when the dependency of an extractor doesn't exist."""
 
@@ -102,7 +102,7 @@ class ExtractorDependencyNotFoundReport(ErrorReport):
     dependencies: list[str]
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class ExtractorTimedOut(ErrorReport):
     """Describes an error when the extractor execution timed out."""
 
@@ -111,7 +111,7 @@ class ExtractorTimedOut(ErrorReport):
     timeout: float
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class MaliciousSymlinkRemoved(ErrorReport):
     """Describes an error when malicious symlinks have been removed from disk."""
 
@@ -120,7 +120,7 @@ class MaliciousSymlinkRemoved(ErrorReport):
     target: str
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class MultiFileCollisionReport(ErrorReport):
     """Describes an error when MultiFiles collide on the same file."""
 
@@ -129,7 +129,7 @@ class MultiFileCollisionReport(ErrorReport):
     handler: str
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class StatReport(Report):
     path: Path
     size: int
@@ -157,7 +157,7 @@ class StatReport(Report):
         )
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class HashReport(Report):
     md5: str
     sha1: str
@@ -183,13 +183,13 @@ class HashReport(Report):
         )
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class FileMagicReport(Report):
     magic: str
     mime_type: str
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class RandomnessMeasurements:
     percentages: list[float]
     block_size: int
@@ -204,14 +204,14 @@ class RandomnessMeasurements:
         return min(self.percentages)
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class RandomnessReport(Report):
     shannon: RandomnessMeasurements
     chi_square: RandomnessMeasurements
 
 
 @final
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class ChunkReport(Report):
     id: str
     handler_name: str
@@ -223,7 +223,7 @@ class ChunkReport(Report):
 
 
 @final
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class UnknownChunkReport(Report):
     id: str
     start_offset: int
@@ -232,13 +232,13 @@ class UnknownChunkReport(Report):
     randomness: Optional[RandomnessReport]
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class CarveDirectoryReport(Report):
     carve_dir: Path
 
 
 @final
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class MultiFileReport(Report):
     id: str
     handler_name: str
@@ -247,7 +247,7 @@ class MultiFileReport(Report):
     extraction_reports: list[Report]
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class ExtractionProblem(Report):
     """A non-fatal problem discovered during extraction.
 
@@ -275,7 +275,7 @@ class ExtractionProblem(Report):
         logger.warning(self.log_msg, path=self.path)
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class PathTraversalProblem(ExtractionProblem):
     extraction_path: str
 
@@ -287,7 +287,7 @@ class PathTraversalProblem(ExtractionProblem):
         )
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class LinkExtractionProblem(ExtractionProblem):
     link_path: str
 
@@ -295,7 +295,7 @@ class LinkExtractionProblem(ExtractionProblem):
         logger.warning(self.log_msg, path=self.path, link_path=self.link_path)
 
 
-@attr.define(kw_only=True, frozen=True)
+@attrs.define(kw_only=True, frozen=True)
 class SpecialFileExtractionProblem(ExtractionProblem):
     mode: int
     device: int

@@ -177,7 +177,7 @@ class UnblobContext(click.Context):
     help=f"""Skip processing files with given magic prefix.
         The provided values are appended to unblob's own skip magic list unless
         --clear-skip-magic is provided.
-        [default: {', '.join(DEFAULT_SKIP_MAGIC)}]
+        [default: {", ".join(DEFAULT_SKIP_MAGIC)}]
     """,
     multiple=True,
 )
@@ -481,12 +481,12 @@ Extraction directory size: [#00FFC8]{human_size(extracted_size)}[/#00FFC8]""",
             chunks_distribution.items(), key=lambda item: item[1], reverse=True
         ):
             chunks_table.add_row(
-                handler.upper(), human_size(size), f"{(size/total_size) * 100:0.2f}%"
+                handler.upper(), human_size(size), f"{(size / total_size) * 100:0.2f}%"
             )
 
         console.print(chunks_table)
         console.print(
-            f"Chunk identification ratio: [#00FFC8]{(valid_size/total_size) * 100:0.2f}%[/#00FFC8]"
+            f"Chunk identification ratio: [#00FFC8]{(valid_size / total_size) * 100:0.2f}%[/#00FFC8]"
         )
 
     if len(reports.errors):

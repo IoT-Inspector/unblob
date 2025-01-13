@@ -4,7 +4,7 @@ import stat
 from pathlib import Path
 from typing import Optional
 
-import attr
+import attrs
 from structlog import get_logger
 
 from ...file_utils import (
@@ -110,7 +110,7 @@ C_DEFINITIONS = r"""
 """
 
 
-@attr.define
+@attrs.define
 class CPIOEntry:
     start_offset: int
     size: int

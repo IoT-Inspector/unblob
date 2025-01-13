@@ -377,9 +377,9 @@ def test_skip_extraction(
 
     assert result.exit_code == 0
     process_file_mock.assert_called_once()
-    assert (
-        process_file_mock.call_args.args[0].skip_extraction == skip_extraction
-    ), fail_message
+    assert process_file_mock.call_args.args[0].skip_extraction == skip_extraction, (
+        fail_message
+    )
 
 
 @pytest.mark.parametrize(

@@ -6,7 +6,7 @@ from enum import IntEnum
 from pathlib import Path
 from typing import Optional
 
-import attr
+import attrs
 from structlog import get_logger
 from treelib import Tree
 from treelib.exceptions import NodeIDAbsentError
@@ -141,7 +141,7 @@ class YaffsObjectType(IntEnum):
     SPECIAL = 5
 
 
-@attr.define
+@attrs.define
 class YAFFSChunk:
     chunk_id: int
     offset: int
@@ -149,7 +149,7 @@ class YAFFSChunk:
     object_id: int
 
 
-@attr.define
+@attrs.define
 class YAFFS1Chunk(YAFFSChunk):
     serial: int
     ecc: bytes
@@ -157,12 +157,12 @@ class YAFFS1Chunk(YAFFSChunk):
     block_status: int
 
 
-@attr.define
+@attrs.define
 class YAFFS2Chunk(YAFFSChunk):
     seq_number: int
 
 
-@attr.define
+@attrs.define
 class YAFFSFileVar:
     file_size: int
     stored_size: int
@@ -170,7 +170,7 @@ class YAFFSFileVar:
     top_level: int
 
 
-@attr.define
+@attrs.define
 class YAFFSConfig:
     endianness: Endian
     page_size: int
@@ -178,22 +178,22 @@ class YAFFSConfig:
     ecc: bool
 
 
-@attr.define
+@attrs.define
 class YAFFSEntry:
     object_type: YaffsObjectType
     object_id: int
     parent_obj_id: int
-    sum_no_longer_used: int = attr.ib(default=0)
-    name: str = attr.ib(default="")
-    alias: str = attr.ib(default="")
-    equiv_id: int = attr.ib(default=0)
-    file_size: int = attr.ib(default=0)
-    st_mode: int = attr.ib(default=0)
-    st_uid: int = attr.ib(default=0)
-    st_gid: int = attr.ib(default=0)
-    st_atime: int = attr.ib(default=0)
-    st_mtime: int = attr.ib(default=0)
-    st_ctime: int = attr.ib(default=0)
+    sum_no_longer_used: int = attrs.field(default=0)
+    name: str = attrs.field(default="")
+    alias: str = attrs.field(default="")
+    equiv_id: int = attrs.field(default=0)
+    file_size: int = attrs.field(default=0)
+    st_mode: int = attrs.field(default=0)
+    st_uid: int = attrs.field(default=0)
+    st_gid: int = attrs.field(default=0)
+    st_atime: int = attrs.field(default=0)
+    st_mtime: int = attrs.field(default=0)
+    st_ctime: int = attrs.field(default=0)
 
     def __lt__(self, other):
         return self.object_id < other.object_id
@@ -208,18 +208,18 @@ class YAFFSEntry:
         return f"{self.object_id}: {self.name}"
 
 
-@attr.define(kw_only=True)
+@attrs.define(kw_only=True)
 class YAFFS2Entry(YAFFSEntry):
-    chksum: int = attr.ib(default=0)
-    st_rdev: int = attr.ib(default=0)
-    win_ctime: list[int] = attr.ib(default=[])
-    win_mtime: list[int] = attr.ib(default=[])
-    inband_shadowed_obj_id: int = attr.ib(default=0)
-    inband_is_shrink: int = attr.ib(default=0)
-    reserved: list[int] = attr.ib(default=[])
-    shadows_obj: int = attr.ib(default=0)
-    is_shrink: int = attr.ib(default=0)
-    filehead: YAFFSFileVar = attr.ib(default=None)
+    chksum: int = attrs.field(default=0)
+    st_rdev: int = attrs.field(default=0)
+    win_ctime: list[int] = attrs.field(default=[])
+    win_mtime: list[int] = attrs.field(default=[])
+    inband_shadowed_obj_id: int = attrs.field(default=0)
+    inband_is_shrink: int = attrs.field(default=0)
+    reserved: list[int] = attrs.field(default=[])
+    shadows_obj: int = attrs.field(default=0)
+    is_shrink: int = attrs.field(default=0)
+    filehead: YAFFSFileVar = attrs.field(default=None)
 
 
 def iterate_over_file(

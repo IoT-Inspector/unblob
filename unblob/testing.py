@@ -6,8 +6,8 @@ import shlex
 import subprocess
 from pathlib import Path
 
+import attrs
 import pytest
-from attr import dataclass
 from lark.lark import Lark
 from lark.visitors import Discard, Transformer
 from pytest_cov.embed import cleanup_on_sigterm
@@ -48,9 +48,9 @@ def gather_integration_tests(test_data_path: Path):
     for input_dir, output_dir, test_id in zip(
         test_input_dirs, test_output_dirs, test_ids
     ):
-        assert (
-            list(input_dir.iterdir()) != []
-        ), f"Integration test input dir should contain at least 1 file: {input_dir}"
+        assert list(input_dir.iterdir()) != [], (
+            f"Integration test input dir should contain at least 1 file: {input_dir}"
+        )
 
         yield pytest.param(input_dir, output_dir, id=test_id)
 
@@ -163,7 +163,7 @@ _hexdump_parser = Lark(
 )
 
 
-@dataclass
+@attrs.define
 class _HexdumpLine:
     offset: int
     data: bytes
