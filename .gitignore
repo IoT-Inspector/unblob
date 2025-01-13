@@ -7,7 +7,7 @@ build/
 *.so
 .idea
 .coverage*
-/.venv/
+/.venv
 unblob.log
 /.devenv
 /.direnv

@@ -192,23 +192,23 @@ For imperative package installation, follow these steps:
 ## From source
 
 1.  Install [Git](https://git-scm.com/download/) if you don't have it yet.
-2.  Install the [Poetry](https://python-poetry.org/docs/#installation) Python package manager.
+2.  Install [uv](https://docs.astral.sh/uv/getting-started/installation/) Python package manager.
 3.  **Clone** the unblob **repository from GitHub**:
 
         git clone https://github.com/onekey-sec/unblob.git
 
-4.  Install **Python dependencies** with Poetry:
+4.  Install **Python dependencies** with uv:
 
     1.  Python packages:
 
             cd unblob
-            poetry install --no-dev
+            uv sync --no-dev
 
     2.  Make sure you [installed all extractors](#install-extractors).
 
     3.  Check that everything works correctly:
 
-            poetry run unblob --show-external-dependencies
+            uv run unblob --show-external-dependencies
 
 ## Install extractors
 
