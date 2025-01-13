@@ -20,7 +20,7 @@ repos:
         language: system
         types_or: [python, pyi]
         require_serial: true
-        entry: poetry run ruff check --force-exclude
+        entry: uv run ruff check --force-exclude
         args:
           [--output-format=full, --fix, --show-fixes, --exit-non-zero-on-fix]
       - id: ruff-format
@@ -28,7 +28,7 @@ repos:
         language: system
         types_or: [python, pyi]
         require_serial: true
-        entry: poetry run ruff format --force-exclude
+        entry: uv run ruff format --force-exclude
       - id: nixfmt
         name: Format Nix (nixfmt)
         types: [nix]
@@ -44,12 +44,12 @@ repos:
         name: Format TOML (taplo)
         language: system
         types: [toml]
-        entry: poetry run taplo format
+        entry: uv run taplo format
       - id: taplo-lint
         name: Lint TOML (taplo)
         language: system
         types: [toml]
-        entry: poetry run taplo lint
+        entry: uv run taplo lint
         args:
           - --default-schema-catalogs
 
