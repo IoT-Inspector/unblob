@@ -11,7 +11,7 @@ final: prev:
   unblob =
     let
       pyproject_toml = (builtins.fromTOML (builtins.readFile ./pyproject.toml));
-      version = pyproject_toml.tool.poetry.version;
+      version = pyproject_toml.project.version;
     in
     (prev.unblob.override { e2fsprogs = final.e2fsprogs-nofortify; }).overridePythonAttrs (super: {
       inherit version;
@@ -22,8 +22,11 @@ final: prev:
           "pyproject.toml"
           "unblob"
           "tests"
+          "README.md"
         ];
       };
+
+      build-system = with final.python3.pkgs; [ hatchling ];
 
       # override disabling of 'test_all_handlers[filesystem.extfs]' from upstream
       pytestFlagsArray = [
