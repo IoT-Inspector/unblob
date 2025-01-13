@@ -13,35 +13,13 @@ runs:
       run: sudo unblob/install-deps.sh
       shell: bash
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
+    - name: Install uv & Python
+      uses: astral-sh/setup-uv@v5
       with:
-        python-version: ${{ inputs.python-version }}
+        enable-cache: true
+        cache-dependency-glob: "uv.lock"
+        python-version: ${{ matrix.python-version }}
 
-    - name: Restore pip cache
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pip
-        key: pip-${{ inputs.python-version }}
-
-    - name: Pip install
-      run: python -m pip install --upgrade pip poetry
-      shell: bash
-
-    - name: Restore poetry cache
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.cache/pypoetry/cache
-          ~/.cache/pypoetry/artifacts
-        key: poetry-cache-and-artifacts-${{ inputs.python-version }}
-
-    - name: Restore virtualenvs
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pypoetry/virtualenvs
-        key: venv-${{ hashFiles('poetry.lock') }}-${{ inputs.python-version }}
-
-    - name: Poetry install
-      run: poetry install --with dev
+    - name: Install the project
+      run: uv sync
       shell: bash

@@ -41,7 +41,7 @@ jobs:
         uses: ./.github/actions/setup-dependencies
 
       - name: Check - pyright
-        run: poetry run pyright .
+        run: uv run pyright .
 
   run_tests:
     name: Run tests
@@ -62,4 +62,4 @@ jobs:
         uses: ./.github/actions/setup-git-lfs
 
       - name: Run pytest
-        run: poetry run pytest -vvv
+        run: uv run pytest -vvv
