@@ -32,8 +32,8 @@ where the exciting stuff is.
 - **git**: You need it for cloning the repository.
   Install it [from the git-scm website](https://git-scm.com/download).
 
-- **Poetry**: it is a package manager for Python dependencies. Follow the instructions on the
-  [Poetry website](https://python-poetry.org/docs/master/#installation) to install the latest version.
+- **uv**: it is a package manager for Python dependencies. Follow the instructions on the
+  [uv website](https://docs.astral.sh/uv/getting-started/installation/) to install the latest version.
 
 - **pre-commit**: We are using [pre-commit](https://pre-commit.com/) to run
   checks like linters, type checks and formatting issues.
@@ -72,16 +72,10 @@ You need to setup Git LFS once, before you will be able to run the whole test su
 
 The recommended way to develop Python projects in a semi-isolated way is to use `virtualenv`.
 
-If you don't want to manage it separately, you can rely on `Poetry` to automatically
+If you don't want to manage it separately, you can rely on `uv` to automatically
 create a virtualenv for you on install.
 
-If you don't want Poetry to automatically create a virtualenv, you can turn it off with this command:
-
-```shell
-poetry config virtualenvs.create false
-```
-
-Or instead of Poetry you can use `pyenv`. You can set the Python interpreter
+Or instead of uv you can use `pyenv`. You can set the Python interpreter
 version for the local folder only with:
 
 ```
@@ -90,29 +84,29 @@ pyenv local 3.12.7
 
 ### Installing Python dependencies
 
-We are using [poetry](https://python-poetry.org/) to manage our Python
+We are using [uv](https://docs.astral.sh/uv/) to manage our Python
 dependencies. To install all required dependencies for development, you can run
 the following command:
 
 ```
-poetry install --with dev
+uv install
 ```
 
 Please note that it installs dependencies within the dedicated virtual
 environment. So if you want to run `unblob` or `pytest`, you need to do it from
 within the virtual environment:
 
-Using poetry run:
+Using uv run:
 
 ```
-poetry run unblob
-poetry run pytest tests -v
+uv run unblob
+uv run pytest tests -v
 ```
 
 By dropping into the virtual environment:
 
 ```
-poetry shell
+uv run $SHELL
 unblob
 pytest tests -v
 ```
