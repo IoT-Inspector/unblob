@@ -167,7 +167,10 @@ exclude = ["unblob/testing.py"]
 paths = ["unblob/", "vulture_whitelist.py"]
 
 [tool.pyright]
-exclude = ["build"]
+exclude = [
+  ".venv",
+  "build",
+]
 typeCheckingMode = "basic"
 
 [build-system]
