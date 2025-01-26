@@ -60,6 +60,7 @@ BUILTIN_HANDLERS: Handlers = (
     romfs.RomFSFSHandler,
     squashfs.SquashFSv1Handler,
     squashfs.SquashFSv2Handler,
+    squashfs.SquashFSv2NonStandardHandler,
     squashfs.SquashFSv3Handler,
     squashfs.SquashFSv3DDWRTHandler,
     squashfs.SquashFSv3BroadcomHandler,
