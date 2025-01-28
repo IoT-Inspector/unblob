@@ -1,6 +1,7 @@
 name: Build Docker image
 
 on:
+  pull_request:
   push:
     branches:
       - main
@@ -12,6 +13,7 @@ env:
 
 jobs:
   build-image:
+    if: github.event_name == 'push' || contains(github.event.*.labels.*.name, 'dependencies')
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -49,6 +51,7 @@ jobs:
             type=sha
 
       - name: Set up QEMU
+        if: matrix.platform != 'linux/amd64'
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
@@ -109,7 +112,7 @@ jobs:
           retention-days: 1
 
   merge-and-push-image:
-    if: github.repository_owner == 'onekey-sec'
+    if: github.repository_owner == 'onekey-sec' && github.event_name == 'push'
     runs-on: ubuntu-latest
     needs:
       - build-image
