@@ -47,6 +47,8 @@ class Sandbox:
             AccessFS.read_write("/dev/shm"),  # noqa: S108
             # Extracted contents
             AccessFS.read_write(config.extract_root),
+            AccessFS.remove_dir(config.extract_root),
+            AccessFS.remove_file(config.extract_root),
             AccessFS.make_dir(config.extract_root.parent),
             AccessFS.read_write(log_path),
             *extra_passthrough,
