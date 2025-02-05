@@ -1,0 +1,2005 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="unblob is an accurate, fast, and easy-to-use extraction suite. unblob parses unknown binary blobs for more than 30 different archive, compression, and file-system formats, extracts their content recursively, and carves out unknown chunks that have not been accounted for. This turns unblob into the perfect companion for extracting, analyzing, and reverse engineering firmware images.">
+      
+      
+        <meta name="author" content="ONEKEY developers">
+      
+      
+        <link rel="canonical" href="https://unblob.org/development/">
+      
+      
+        <link rel="prev" href="../extractors/">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+      <link rel="icon" href="../favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Development - unblob - extract everything!</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-RQC2V8NDHT"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-RQC2V8NDHT",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-RQC2V8NDHT",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>if("undefined"!=typeof __md_analytics){var consent=__md_get("__consent");consent&&consent.analytics&&__md_analytics()}</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Development - unblob - extract everything!" >
+      
+        <meta  property="og:description"  content="unblob is an accurate, fast, and easy-to-use extraction suite. unblob parses unknown binary blobs for more than 30 different archive, compression, and file-system formats, extracts their content recursively, and carves out unknown chunks that have not been accounted for. This turns unblob into the perfect companion for extracting, analyzing, and reverse engineering firmware images." >
+      
+        <meta  property="og:image"  content="https://unblob.org/assets/images/social/development.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://unblob.org/development/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Development - unblob - extract everything!" >
+      
+        <meta  name="twitter:description"  content="unblob is an accurate, fast, and easy-to-use extraction suite. unblob parses unknown binary blobs for more than 30 different archive, compression, and file-system formats, extracts their content recursively, and carves out unknown chunks that have not been accounted for. This turns unblob into the perfect companion for extracting, analyzing, and reverse engineering firmware images." >
+      
+        <meta  name="twitter:image"  content="https://unblob.org/assets/images/social/development.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#development" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="unblob - extract everything!" class="md-header__button md-logo" aria-label="unblob - extract everything!" data-md-component="logo">
+      
+  <img src="../logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            unblob - extract everything!
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Development
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/onekey-sec/unblob" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Unblob on GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../guide/" class="md-tabs__link">
+        
+  
+    
+  
+  User Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../installation/" class="md-tabs__link">
+        
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../formats/" class="md-tabs__link">
+        
+  
+    
+  
+  Supported Formats
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../extractors/" class="md-tabs__link">
+        
+  
+    
+  
+  Extractors
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Development
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/" class="md-tabs__link">
+        
+  
+    
+  
+  API
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../glossary/" class="md-tabs__link">
+        
+  
+    
+  
+  Glossary
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../publications/" class="md-tabs__link">
+        
+  
+    
+  
+  Publications
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../support/" class="md-tabs__link">
+        
+  
+    
+  
+  Support
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="unblob - extract everything!" class="md-nav__button md-logo" aria-label="unblob - extract everything!" data-md-component="logo">
+      
+  <img src="../logo.svg" alt="logo">
+
+    </a>
+    unblob - extract everything!
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/onekey-sec/unblob" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Unblob on GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supported Formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extractors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extractors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-development-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up development environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up development environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloning-the-git-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloning the Git repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-a-virtualenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making a virtualenv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-python-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Python dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-pre-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running pre-commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the tests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing handlers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing handlers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structhandler-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      StructHandler class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directoryhandler-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DirectoryHandler class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-handler-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Handler implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Handlers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilities-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilities Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperscan-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hyperscan Rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hyperscan Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hexstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      HexString
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directorypatterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      DirectoryPatterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DirectoryPatterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#glob" class="md-nav__link">
+    <span class="md-ellipsis">
+      Glob
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#singlefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      SingleFile
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-extractors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing extractors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing extractors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command extractor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extractor-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extractor class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directoryextractor-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DirectoryExtractor class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Extractor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guidelines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code style
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-format-correctness" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Format Correctness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-unblob-handler-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common unblob Handler Mistakes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../publications/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Publications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-development-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up development environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up development environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloning-the-git-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloning the Git repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-a-virtualenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making a virtualenv
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-python-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Python dependencies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-pre-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running pre-commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-the-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running the tests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing handlers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing handlers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structhandler-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      StructHandler class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directoryhandler-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DirectoryHandler class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-handler-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Handler implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Handlers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilities-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilities Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyperscan-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hyperscan Rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hyperscan Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hexstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      HexString
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directorypatterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      DirectoryPatterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DirectoryPatterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#glob" class="md-nav__link">
+    <span class="md-ellipsis">
+      Glob
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#singlefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      SingleFile
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-extractors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing extractors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing extractors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command extractor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extractor-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extractor class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directoryextractor-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DirectoryExtractor class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Extractor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guidelines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code style
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-format-correctness" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Format Correctness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-unblob-handler-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common unblob Handler Mistakes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h1>
+<p>Want to contribute to unblob? That's great! We developed a framework
+(we sometimes reference it as <em>"unblob core"</em>), to make it very <strong>easy</strong>
+to add <strong>support for new file formats</strong>. This page describes the process
+of how to do that.</p>
+<p>If you <em>don't want or don't know</em> how to develop complex Python applications,
+that's not a problem! If there is a format you would like to be supported in
+unblob and you can <em>describe and explain</em> it (maybe with nifty
+hex-representations, hand-drawings or smoke signs, or whatever you cup-of-tea
+is), we might help you implement it! Just open a
+<a href="https://github.com/onekey-sec/unblob/issues/new">new ticket</a>
+in the GitHub issue tracker.</p>
+<p>If you do know all this stuff, and you have all the tools in the world installed,
+you can just jump to the <a href="#writing-handlers">How to write handlers</a> section
+where the exciting stuff is.</p>
+<h2 id="setting-up-development-environment">Setting up development environment<a class="headerlink" href="#setting-up-development-environment" title="Permanent link">&para;</a></h2>
+<h3 id="required-tools">Required tools<a class="headerlink" href="#required-tools" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Python</strong>: unblob requires <strong>Python 3.9</strong> or above. Make sure that
+  <a href="https://www.python.org/downloads/">Python is installed</a> on your system.</p>
+</li>
+<li>
+<p><strong>git</strong>: You need it for cloning the repository.
+  Install it <a href="https://git-scm.com/download">from the git-scm website</a>.</p>
+</li>
+<li>
+<p><strong>uv</strong>: it is a package manager for Python dependencies. Follow the instructions on the
+  <a href="https://docs.astral.sh/uv/getting-started/installation/">uv website</a> to install the latest version.</p>
+</li>
+<li>
+<p><strong>pre-commit</strong>: We are using <a href="https://pre-commit.com/">pre-commit</a> to run
+  checks like linters, type checks and formatting issues.</p>
+</li>
+<li>
+<p><strong>Git LFS</strong>: We have big integration test files, and we are using Git LFS to track them.
+  <a href="https://git-lfs.github.com/">Install <code>git-lfs</code></a> from the website.</p>
+</li>
+<li>
+<p><strong>Rust</strong> some functionality of unblob is implemented in Rust. Building it requires a Rust toolchain
+  (e.g. via <a href="https://rustup.rs/"><code>rustup</code></a>) to be installed on the host system. Follow the
+  instructions on the <a href="https://rustup.rs/">rustup website</a> to install it.</p>
+</li>
+<li>
+<p><strong>pyenv</strong> (<em>Recommended</em>): When you are working with multiple versions of Python,
+  pyenv makes it very easy to install and use different versions and make virtualenvs.
+  Follow the <a href="https://github.com/pyenv/pyenv">instructions on GitHub</a> for the installation.
+  If your system already has at least Python 3.9 installed, you don't need it.</p>
+</li>
+</ul>
+<h3 id="cloning-the-git-repository">Cloning the Git repository<a class="headerlink" href="#cloning-the-git-repository" title="Permanent link">&para;</a></h3>
+<p>Set up your git config, fork the project on GitHub, then clone your fork locally.</p>
+<p>If you installed <code>pre-commit</code>, you can run <code>pre-commit install</code>, which makes pre-commit run automatically during git commits with git hooks, so you don't have to run them manually.</p>
+<p>You need to setup Git LFS once, before you will be able to run the whole test suite:</p>
+<div class="highlight"><pre><span></span><code>git lfs install
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you have cloned the repository prior to installing Git LFS, you need to run
+the following commands in the cloned repository once:</p>
+<div class="highlight"><pre><span></span><code>git lfs pull
+git lfs checkout
+</code></pre></div>
+</div>
+<h3 id="making-a-virtualenv">Making a virtualenv<a class="headerlink" href="#making-a-virtualenv" title="Permanent link">&para;</a></h3>
+<p>The recommended way to develop Python projects in a semi-isolated way is to use <code>virtualenv</code>.</p>
+<p>If you don't want to manage it separately, you can rely on <code>uv</code> to automatically
+create a virtualenv for you on install.</p>
+<p>Or instead of uv you can use <code>pyenv</code>. You can set the Python interpreter
+version for the local folder only with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pyenv local 3.12.7
+</code></pre></div>
+<h3 id="installing-python-dependencies">Installing Python dependencies<a class="headerlink" href="#installing-python-dependencies" title="Permanent link">&para;</a></h3>
+<p>We are using <a href="https://docs.astral.sh/uv/">uv</a> to manage our Python
+dependencies. To install all required dependencies for development, you can run
+the following command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv install
+</code></pre></div>
+<p>Please note that it installs dependencies within the dedicated virtual
+environment. So if you want to run <code>unblob</code> or <code>pytest</code>, you need to do it from
+within the virtual environment:</p>
+<p>Using uv run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv run unblob
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv run pytest tests -v
+</code></pre></div>
+<p>By dropping into the virtual environment:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv run $SHELL
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>unblob
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>pytest tests -v
+</code></pre></div>
+<h3 id="running-pre-commit">Running pre-commit<a class="headerlink" href="#running-pre-commit" title="Permanent link">&para;</a></h3>
+<p>If you installed the <code>pre-commit</code> git hook when setting up your local git repo, you
+don't need this step, otherwise you can run all checks with <code>pre-commit run --all-files</code>.</p>
+<h3 id="running-the-tests">Running the tests<a class="headerlink" href="#running-the-tests" title="Permanent link">&para;</a></h3>
+<p>We are using <a href="https://docs.pytest.org/">pytest</a> for running our test suite.<br />
+We have big integration files in the <code>tests/integration</code> directory,
+we are using <a href="https://git-lfs.github.com/">Git LFS to track them</a>.<br />
+Only after you <a href="#cloning-the-git-repository">installed Git LFS</a>, can you
+run all tests, with <code>python -m pytest tests/</code> in the activated virtualenv.</p>
+<h2 id="writing-handlers">Writing handlers<a class="headerlink" href="#writing-handlers" title="Permanent link">&para;</a></h2>
+<p>Every handler inherits from the abstract class <code>Handler</code> located in
+<a href="https://github.com/onekey-sec/unblob/blob/main/unblob/models.py">unblob/models.py</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Handler</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A file type handler is responsible for searching, validating and &quot;unblobbing&quot; files from Blobs.&quot;&quot;&quot;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">NAME</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">PATTERNS</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">PATTERN_MATCH_OFFSET</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">EXTRACTOR</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Extractor</span><span class="p">]</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="nd">@classmethod</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_dependencies</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns external command dependencies needed for this handler to work.&quot;&quot;&quot;</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">BufferedIOBase</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ValidChunk</span><span class="p">]:</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a ValidChunk when it found a valid format for this Handler.</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="sd">        Otherwise it can raise and Exception or return None, those will be ignored.</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="sd">        &quot;&quot;&quot;</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inpath</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">outdir</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Responsible for extraction a ValidChunk.&quot;&quot;&quot;</span>
+</code></pre></div>
+<ul>
+<li><code>NAME</code>: a unique name for this handler, this value will be appended at the end of carved out chunks</li>
+<li><code>PATTERNS</code>: an array of <code>Hyperscan</code> rules.</li>
+<li><code>PATTERN_MATCH_OFFSET</code>: an offset from the <code>hyperscan</code> match to the actual start offset.<br />
+  This happens when the magic is not the first field in a file header</li>
+<li><code>EXTRACTOR</code>: an optional <a href="../extractors/">Extractor</a>. It can be set to <code>None</code>
+  if the handler is supposed to only carve files</li>
+<li><code>get_dependencies()</code>: returns the extractor dependencies. This helps unblob keep
+  track of <a href="../extractors/">third party dependencies</a>.</li>
+<li><code>calculate_chunk()</code>: this is the method that needs to be overridden in your
+  handler. It receives a <code>file</code> object and the effective <code>start_offset</code> of your
+  chunk. This is where you implement the logic to compute the <code>end_offset</code> and
+  return a <code>ValidChunk</code> object.</li>
+</ul>
+<h3 id="structhandler-class">StructHandler class<a class="headerlink" href="#structhandler-class" title="Permanent link">&para;</a></h3>
+<p><code>StructHandler</code> is a specialized subclass of <code>Handler</code> that provides a structure
+parsing API based on the <a href="https://pypi.org/project/dissect.cstruct/"><code>dissect.cstruct</code></a> library:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">StructHandler</span><span class="p">(</span><span class="n">Handler</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">C_DEFINITIONS</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">HEADER_STRUCT</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_struct_parser</span> <span class="o">=</span> <span class="n">StructParser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">C_DEFINITIONS</span><span class="p">)</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="nd">@property</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">cparser_le</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_struct_parser</span><span class="o">.</span><span class="n">cparser_le</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="nd">@property</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">cparser_be</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_struct_parser</span><span class="o">.</span><span class="n">cparser_be</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">parse_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">BufferedIOBase</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">Endian</span><span class="o">.</span><span class="n">LITTLE</span><span class="p">):</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>        <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_struct_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">HEADER_STRUCT</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="p">)</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Header parsed&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span> <span class="n">_verbosity</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>        <span class="k">return</span> <span class="n">header</span>
+</code></pre></div>
+<p>This class defines new attributes and methods:</p>
+<ul>
+<li>
+<p><code>C_DEFINITIONS</code>: a string holding one or multiple structures definitions in C,
+  which will be used to parse the format. We use the following standard to define structs:</p>
+<div class="highlight"><pre><span></span><code>typedef struct my_struct {
+    uint8 header_length;
+} my_struct_t;
+</code></pre></div>
+</li>
+<li>
+<p><code>HEADER_STRUCT</code>: the name of your C structure that you'll use to parse the format header.</p>
+</li>
+<li><code>parse_header()</code>: it will parse the file from the current offset in <code>endian</code>
+  endianness into a structure using <code>HEADER_STRUCT</code> defined in <code>C_DEFINITIONS</code>.</li>
+</ul>
+<p>If you need to parse structure using different endianness, the class exposes two properties:</p>
+<ul>
+<li><code>cparser_le</code>: <code>dissect.cstruct</code> parser configured in little endian</li>
+<li><code>cparser_be</code>: <code>dissect.cstruct</code> parser configured in big endian</li>
+</ul>
+<div class="admonition recommendation">
+<p class="admonition-title">Recommendation</p>
+<p>If your format allows it, we strongly recommend you to inherit from the
+StructHandler given that it will be strongly typed and less prone to errors.</p>
+</div>
+<h3 id="directoryhandler-class">DirectoryHandler class<a class="headerlink" href="#directoryhandler-class" title="Permanent link">&para;</a></h3>
+<p><code>DirectoryHandler</code> is a specialized handler responsible for identifying multi-file formats
+located in a directory or in a subtree. The abstract class is located in
+<a href="https://github.com/onekey-sec/unblob/blob/main/unblob/models.py">unblob/models.py</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DirectoryHandler</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A directory type handler is responsible for searching, validating and &quot;unblobbing&quot; files from multiple files in a directory.&quot;&quot;&quot;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">NAME</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">EXTRACTOR</span><span class="p">:</span> <span class="n">DirectoryExtractor</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">PATTERN</span><span class="p">:</span> <span class="n">DirectoryPattern</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="nd">@classmethod</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_dependencies</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return external command dependencies needed for this handler to work.&quot;&quot;&quot;</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">EXTRACTOR</span><span class="p">:</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">EXTRACTOR</span><span class="o">.</span><span class="n">get_dependencies</span><span class="p">()</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="k">return</span> <span class="p">[]</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_multifile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MultiFile</span><span class="p">]:</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the MultiFile in a directory, using a file matched by the pattern as a starting point.&quot;&quot;&quot;</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">outdir</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXTRACTOR</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Skipping file: no extractor.&quot;</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="n">paths</span><span class="p">)</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>            <span class="k">raise</span> <span class="n">ExtractError</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>        <span class="c1"># We only extract every blob once, it&#39;s a mistake to extract the same blob again</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>        <span class="n">outdir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">EXTRACTOR</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">outdir</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li><code>NAME</code>: a unique name for this handler</li>
+<li><code>PATTERN</code>: A <code>DirectoryPattern</code> used to identify a starting/main file of the given format.</li>
+<li><code>EXTRACTOR</code>: a <a href="../extractors/">DirectoryExtractor</a>.</li>
+<li><code>get_dependencies()</code>: returns the extractor dependencies. This helps unblob keep
+  track of <a href="../extractors/">third party dependencies</a>.</li>
+<li><code>calculate_multifile()</code>: this is the method that needs to be overridden in your
+  handler. It receives a <code>file</code> Path object identified by the <code>PATTERN</code> in the directory.
+  This is where you implement the logic to compute and return the <code>MultiFile</code> file set.</li>
+</ul>
+<p>Any files that are being processed as part of a <code>MultiFile</code> set would be skipped from <code>Chunk</code>
+detection.</p>
+<p>Any file that is part of multiple <code>MultiFile</code> is a collision and results in a processing error.</p>
+<h3 id="example-handler-implementation">Example Handler implementation<a class="headerlink" href="#example-handler-implementation" title="Permanent link">&para;</a></h3>
+<p>Let's imagine that we have a custom file format that always starts with the
+magic: <code>UNBLOB!!</code>, followed by the size of the file (header included) as an
+unsigned 32 bit integer.</p>
+<p>First, we create a file in <code>unblob/handlers/archive/myformat.py</code> and write the
+skeleton of our handler:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyformatHandler</span><span class="p">(</span><span class="n">StructHandler</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;myformat&quot;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">PATTERNS</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">C_DEFINITIONS</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">HEADER_STRUCT</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">EXTRACTOR</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">BufferedIOBase</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ValidChunk</span><span class="p">]:</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="k">return</span>
+</code></pre></div>
+<p>We need to match on our custom magic. To find the right offset, we need to match
+on the <code>UNBLOB!!</code> byte pattern, so we add a <code>HexString</code> Hyperscan rule:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyformatHandler</span><span class="p">(</span><span class="n">StructHandler</span><span class="p">):</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;myformat&quot;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="hll">    <span class="n">PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
+</span><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="hll">        <span class="n">HexString</span><span class="p">(</span><span class="s2">&quot;55 4E 42 4C 4F 42 21 21&quot;</span><span class="p">),</span>  <span class="c1"># &quot;UNBLOB!!&quot;</span>
+</span><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="hll">    <span class="p">]</span>
+</span><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="n">C_DEFINITIONS</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">HEADER_STRUCT</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="n">EXTRACTOR</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">BufferedIOBase</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ValidChunk</span><span class="p">]:</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        <span class="k">return</span>
+</code></pre></div>
+<p>Then we need to parse the header, so we define a C structure in <code>C_DEFINITIONS</code> and adapt <code>HEADER_STRUCT</code> accordingly:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyformatHandler</span><span class="p">(</span><span class="n">StructHandler</span><span class="p">):</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;myformat&quot;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        <span class="n">HexString</span><span class="p">(</span><span class="s2">&quot;55 4E 42 4C 4F 42 21 21&quot;</span><span class="p">),</span>  <span class="c1"># &quot;UNBLOB!!&quot;</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="p">]</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="hll">    <span class="n">C_DEFINITIONS</span><span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+</span><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="hll"><span class="s2">        typedef struct myformat_header {</span>
+</span><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="hll"><span class="s2">            char magic[8];</span>
+</span><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="hll"><span class="s2">            uint32 size;</span>
+</span><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="hll"><span class="s2">        } myformat_header_t;</span>
+</span><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="hll"><span class="s2">    &quot;&quot;&quot;</span>
+</span><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="hll">    <span class="n">HEADER_STRUCT</span><span class="o">=</span> <span class="s2">&quot;myformat_header_t&quot;</span>
+</span><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    <span class="n">EXTRACTOR</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">BufferedIOBase</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ValidChunk</span><span class="p">]:</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>        <span class="k">return</span>
+</code></pre></div>
+<p>With everything set, all that is left is to implement the <code>calculate_chunk</code> function:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyformatHandler</span><span class="p">(</span><span class="n">StructHandler</span><span class="p">):</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;myformat&quot;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="n">PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        <span class="n">HexString</span><span class="p">(</span><span class="s2">&quot;55 4E 42 4C 4F 42 21 21&quot;</span><span class="p">),</span>  <span class="c1"># &quot;UNBLOB!!&quot;</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="p">]</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="n">C_DEFINITIONS</span><span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="s2">        typedef struct myformat_header {</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="s2">            char magic[8];</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="s2">            uint32 size;</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="s2">        } myformat_header_t;</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="s2">    &quot;&quot;&quot;</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    <span class="n">HEADER_STRUCT</span><span class="o">=</span> <span class="s2">&quot;myformat_header_t&quot;</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    <span class="n">EXTRACTOR</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="hll">    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">BufferedIOBase</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ValidChunk</span><span class="p">]:</span>
+</span><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="hll">        <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_header</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">Endian</span><span class="o">.</span><span class="n">LITTLE</span><span class="p">)</span>
+</span><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="hll">        <span class="n">end_offset</span> <span class="o">=</span> <span class="n">start_offset</span> <span class="o">+</span> <span class="n">header</span><span class="o">.</span><span class="n">size</span>
+</span><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="hll">        <span class="k">return</span> <span class="n">ValidChunk</span><span class="p">(</span><span class="n">start_offset</span><span class="o">=</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">end_offset</span><span class="o">=</span><span class="n">end_offset</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>That's it!</strong><br />
+Now you have a working handler for your own custom format!</p>
+<h3 id="testing-handlers">Testing Handlers<a class="headerlink" href="#testing-handlers" title="Permanent link">&para;</a></h3>
+<p>If you want to submit a new format handler to unblob, it needs to come up with
+its own set of integration tests.</p>
+<p>We've implemented integration tests this way:</p>
+<ol>
+<li>pytest picks up integration test files corresponding to your handler in
+   <code>test/integration/type/handler_name/__input__</code> directory.</li>
+<li>pytest runs unblob on all the integration test files it picked up in the first step.</li>
+<li>pytest runs <code>diff</code> between the temporary extraction directory and
+   <code>test/integration/type/handler_name/__output__</code>.</li>
+<li>if no differences are observed the test pass, otherwise it fails.</li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Create integration test files that cover <strong>all the possible scenarios of the target format</strong>.</p>
+<p>That includes different endianness, different versions, different padding, different algorithms. An excellent example of this is the integration test files for JFFS2 filesystems where we have filesystems covering both endianness (big endian, little endian), with or without padding, and with different compression algorithms (no compression, zlib, rtime, lzo):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>./fruits.new.be.zlib.padded.jffs2
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>./fruits.new.be.nocomp.padded.jffs2
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>./fruits.new.be.rtime.jffs2
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>./fruits.new.le.lzo.jffs2
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>./fruits.new.le.rtime.jffs2
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>./fruits.new.le.nocomp.padded.jffs2
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>./fruits.new.be.rtime.padded.jffs2
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>./fruits.new.be.lzo.jffs2
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>./fruits.new.be.zlib.jffs2
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>./fruits.new.le.zlib.padded.jffs2
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>./fruits.new.be.lzo.padded.jffs2
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>./fruits.new.le.lzo.padded.jffs2
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>./fruits.new.be.nocomp.jffs2
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>./fruits.new.le.zlib.jffs2
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>./fruits.new.le.rtime.padded.jffs2
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>./fruits.new.le.nocomp.jffs2
+</code></pre></div>
+</div>
+<h3 id="utilities-functions">Utilities Functions<a class="headerlink" href="#utilities-functions" title="Permanent link">&para;</a></h3>
+<p>We developed a bunch of utility functions which helped us during the development of
+existing unblob handlers. Do not hesitate to take a look at them in
+<a href="https://github.com/onekey-sec/unblob/blob/main/unblob/file_utils.py">unblob/file_utils.py</a>
+to see if any of those functions could help you during your own handler
+development.</p>
+<h3 id="hyperscan-rules">Hyperscan Rules<a class="headerlink" href="#hyperscan-rules" title="Permanent link">&para;</a></h3>
+<p>Our hyperscan-based implementation accepts two different kinds of rule
+definitions: <code>Regex</code> and <code>HexString</code>.</p>
+<h4 id="regex">Regex<a class="headerlink" href="#regex" title="Permanent link">&para;</a></h4>
+<p>This object simply represents any regular expression. Example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">Regex</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;-lh0-&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">]</span>
+</code></pre></div>
+<h4 id="hexstring">HexString<a class="headerlink" href="#hexstring" title="Permanent link">&para;</a></h4>
+<p>This object can be used to write rules using the same DSL as Yara. The only
+limitation is that we do not support multi-line comments and unbounded jumps.
+Here's an example of a Hyperscan rule based on <code>HexString</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="n">HexString</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="s2">        // this is a comment</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="s2">        AA 00 [2] 01</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">]</span>
+</code></pre></div>
+<p>In addition, start and end of input anchors (<code>^</code> and <code>$</code> like in regular
+expressions) can also be used to restrict a match to the beginning or the end of
+the input file.</p>
+<h3 id="directorypatterns">DirectoryPatterns<a class="headerlink" href="#directorypatterns" title="Permanent link">&para;</a></h3>
+<p>The <code>DirectoryHandler</code> uses these patterns to identify the starting/main file of a given
+multi-file format. There are currently two main types: <code>Glob</code> and <code>SingleFile</code></p>
+<h4 id="glob">Glob<a class="headerlink" href="#glob" title="Permanent link">&para;</a></h4>
+<p>The <code>Glob</code> object can use traditional globbing to detect files in a directory. This could be used when
+the file could have a varying part. There are cases where multiple multi-file set could be in a single
+directory. The job of the <code>DirectoryPattern</code> is to recognize the main file for each set.</p>
+<p>Here is an example on <code>Glob</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">PATTERN</span> <span class="o">=</span> <span class="n">Glob</span><span class="p">(</span><span class="s2">&quot;*.7z.001&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>This example identify the first volume of a multi-volume sevenzip archive. Notice that this could pick
+up all first volumes in a given directory. (NB: Detecting the other volumes of a given set is the
+responsibility of the <code>DirectoryHandler.calculate_multifile</code> function. Do not write a <code>Glob</code> which picks
+up all the files of a multi-file set as that would result in errors.)</p>
+<h4 id="singlefile">SingleFile<a class="headerlink" href="#singlefile" title="Permanent link">&para;</a></h4>
+<p>The <code>SingleFile</code> object can be used to identify a single file with a known name. (Obviously only use this if the
+main file name is well-known and does not have a varying part. It also means that only a single multi-file set
+can be detected in a given directory.)</p>
+<p>Here is an example on <code>SingleFile</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">PATTERN</span> <span class="o">=</span> <span class="n">SingleFile</span><span class="p">(</span><span class="s2">&quot;meta-data.json&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>This would pick up the file <code>meta-data.json</code> and pass it to the <code>DirectoryHandler</code>. The handler still has to
+verify the file and has to find the additional files.</p>
+<h2 id="writing-extractors">Writing extractors<a class="headerlink" href="#writing-extractors" title="Permanent link">&para;</a></h2>
+<div class="admonition recommendation">
+<p class="admonition-title">Recommendation</p>
+<p>We support custom Python based extractors as part of unblob, but unless you
+write a handler for an exotic format, you should check if the
+<a href="#command-extractor">Command extractor</a> is sufficient for your needs, as
+it's very simple to use.</p>
+</div>
+<h3 id="command-extractor">Command extractor<a class="headerlink" href="#command-extractor" title="Permanent link">&para;</a></h3>
+<p>This extractor simply runs a command line tool on the carved-out file (<code>inpath</code>)
+to extract into the extraction directory (<code>outdir</code>). Below is the <code>Command</code>
+extractor instance of the ZIP handler:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">EXTRACTOR</span> <span class="o">=</span> <span class="n">Command</span><span class="p">(</span><span class="s2">&quot;7z&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;-y&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{inpath}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;-o</span><span class="si">{outdir}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>If you have a custom format with no supported command to extract it, check out
+the <code>Extractor</code> Python class.</p>
+<h3 id="extractor-class">Extractor class<a class="headerlink" href="#extractor-class" title="Permanent link">&para;</a></h3>
+<p>The <code>Extractor</code> interface is defined in
+<a href="https://github.com/onekey-sec/unblob/blob/main/unblob/models.py">unblob/models.py</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Extractor</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the external command dependencies.&quot;&quot;&quot;</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>        <span class="k">return</span> <span class="p">[]</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inpath</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">outdir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ExtractResult</span><span class="p">]:</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract the carved out chunk. Raises ExtractError on failure.&quot;&quot;&quot;</span>
+</code></pre></div>
+<p>Two methods are exposed by this class:</p>
+<ul>
+<li><code>get_dependencies()</code>: you should override it if your custom extractor relies on
+  external dependencies such as command line tools</li>
+<li><code>extract()</code>: you must override this function. This is where you'll perform the
+  extraction of <code>inpath</code> content into <code>outdir</code> extraction directory</li>
+</ul>
+<div class="admonition recommendation">
+<p class="admonition-title">Recommendation</p>
+<p>Although it is possible to implement <code>extract()</code> with path manipulations,
+checks for path traversals, and performing io by using Python libraries
+(<code>os</code>, <code>pathlib.Path</code>), but it turns out somewhat tedious.
+Instead we recommend to remove boilerplate and use a helper class <code>FileSystem</code> from
+<a href="https://github.com/onekey-sec/unblob/blob/main/unblob/file_utils.py">unblob/file_utils.py</a>
+which ensures that all file objects are created under its root.</p>
+</div>
+<h3 id="directoryextractor-class">DirectoryExtractor class<a class="headerlink" href="#directoryextractor-class" title="Permanent link">&para;</a></h3>
+<p>The <code>DirectoryExtractor</code> interface is defined in
+<a href="https://github.com/onekey-sec/unblob/blob/main/unblob/models.py">unblob/models.py</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DirectoryExtractor</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the external command dependencies.&quot;&quot;&quot;</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>        <span class="k">return</span> <span class="p">[]</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">outdir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ExtractResult</span><span class="p">]:</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract from a multi file path list.</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="sd">        Raises ExtractError on failure.</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="sd">        &quot;&quot;&quot;</span>
+</code></pre></div>
+<p>Two methods are exposed by this class:</p>
+<ul>
+<li><code>get_dependencies()</code>: you should override it if your custom extractor relies on
+  external dependencies such as command line tools</li>
+<li><code>extract()</code>: you must override this function. This is where you'll perform the
+  extraction of <code>paths</code> files into <code>outdir</code> extraction directory</li>
+</ul>
+<div class="admonition recommendation">
+<p class="admonition-title">Recommendation</p>
+<p>Similarly to <code>Extractor</code>, it is recommended to use the <code>FileSystem</code> helper class to
+implement <code>extract</code>.</p>
+</div>
+<h3 id="example-extractor">Example Extractor<a class="headerlink" href="#example-extractor" title="Permanent link">&para;</a></h3>
+<p>Extractors are quite complex beasts, so rather than trying to come up with a
+fake example, we recommend you to read through our
+<a href="https://github.com/onekey-sec/unblob/blob/868da1b53412e4f1fedaa3da72fab0852330a83e/unblob/handlers/filesystem/romfs.py#L305-L313">RomFS extractor</a>
+code to see what it looks like in real world applications.</p>
+<h2 id="guidelines">Guidelines<a class="headerlink" href="#guidelines" title="Permanent link">&para;</a></h2>
+<h3 id="code-style">Code style<a class="headerlink" href="#code-style" title="Permanent link">&para;</a></h3>
+<p>We adhere to PEP8 and enforce proper formatting of source files using <a href="https://docs.astral.sh/ruff/formatter/">ruff
+format</a> so you should not worry about
+formatting source code at all, <code>pre-commit</code> will take care of it.</p>
+<p>For linting we use <a href="https://docs.astral.sh/ruff/linter/">ruff check</a>. Lint
+errors can be shown in your editor of choice by one of the <a href="https://docs.astral.sh/ruff/editors/">editor
+plugins</a>.</p>
+<h3 id="file-format-correctness">File Format Correctness<a class="headerlink" href="#file-format-correctness" title="Permanent link">&para;</a></h3>
+<p>We want to strike the right balance between false positive reduction and a
+totally loose implementation. We tend <em>not to validate checksums</em> in order to
+still be able to <em>extract corrupted content</em>. However, if the lack of checksum
+validation gets in the way by leaving the handler generating a large amount of
+false positive, then it's time to revisit the handler and implement stronger
+header checks.</p>
+<h3 id="common-unblob-handler-mistakes">Common unblob Handler Mistakes<a class="headerlink" href="#common-unblob-handler-mistakes" title="Permanent link">&para;</a></h3>
+<p>This is a collection of all the bad code we've seen during unblob development.
+Learn from us so you can avoid them in the future 🙂</p>
+<ul>
+<li>Use <code>seek</code> rather than <code>read</code> whenever possible, it's <a href="https://github.com/onekey-sec/unblob/pulls?q=is%3Apr+is%3Aclose+%22seek+rather+%22">faster</a>.</li>
+<li>You should always keep in mind to <code>seek</code> to the position the header starts or make sure you are always at the correct
+  offset at all times. For example we made the mistake multiple times that read 4 bytes for file magic and didn't seek
+  back.</li>
+<li>Watch out for <a href="https://github.com/onekey-sec/unblob/pull/280">negative seeking</a></li>
+<li>Make sure you get your types right! signedness can <a href="https://github.com/onekey-sec/unblob/pull/130">get in the way</a>.</li>
+<li>Try to use as specific as possible patterns to identify data in Handlers to avoid false-positive matches
+  and extra processing in the Handler.</li>
+<li>Try to avoid using overlapping patterns, as patterns that match on the same data could easily collide. Hyperscan
+  does not guarantee priority between patterns matching on the same data. (Hyperscan reports matches ordered by the
+  pattern match end offset. In case multiple pattern match on the same end offset the matching order depends on the
+  pattern registration order which is undefined in unblob.)</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021 - 2025 ONEKEY GmbH. | <a href="/privacy/">Privacy policy</a> | <a href="#__consent">Change cookie settings</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/onekey-sec/unblob" target="_blank" rel="noopener" title="unblob on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/onekey_sec" target="_blank" rel="noopener" title="ONEKEY on Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/company/onekey-sec/" target="_blank" rel="noopener" title="ONEKEY on LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+  
+    
+  
+
+
+  
+    
+  
+
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="analytics" checked>
+          <span class="task-list-indicator"></span>
+          Google Analytics
+        </label>
+      </li>
+    
+      
+      
+        
+        
+      
+      <li class="task-list-item">
+        <label class="task-list-control">
+          <input type="checkbox" name="github" checked>
+          <span class="task-list-indicator"></span>
+          GitHub
+        </label>
+      </li>
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.top", "navigation.tabs"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+    
+  </body>
+</html>
